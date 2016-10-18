@@ -8,12 +8,9 @@ from memeapi import memeapi
 import shutil
 import os
 
-
 app = Flask(__name__)
 sparkbot = sparkapi()
 memegen  = memeapi()
-
-
 
 @app.route('/hello',methods=['POST'])
 def parsing():
@@ -33,9 +30,9 @@ def parsing():
       print "in help"
       sparkbot.post_txt_file(str(roomId),'help.txt')
    else: 
-      print "in genral "
+      print "in general "
       input_list = input_ret[1].split('|')
-      image_file=memegen.get_image(input_list[0],input_list[1],input_list[2])
+      image_file = memegen.get_image(input_list[0],input_list[1],input_list[2])
       print  "done"
 
       image_name = str(msg_id) +'.jpeg'
@@ -43,8 +40,6 @@ def parsing():
             shutil.copyfileobj(image_file.raw, out_file)
       del image_file
 
-
-      
       print roomId
       sparkbot.post_msg(str(roomId),"got that")
       print "hello"
@@ -57,7 +52,6 @@ def parsing():
           app.logger.error("Error removing or closing downloaded file handle", error)
           print "error removing file" 
           print error
-  
 
    return 'OK'
 
